@@ -14,21 +14,21 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.puzan.R;
+import com.example.puzan.models.RetroPhoto;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
     private static final String TAG = "RecyclerViewAdapter";
 
-    private ArrayList<String> mImageNames = new ArrayList<>();
-    private ArrayList<String> mImages = new ArrayList<>();
+    private List<RetroPhoto> retroPhotos;
     private Context mContext;
 
-    public RecyclerViewAdapter(Context context, ArrayList<String> imageNames, ArrayList<String> images ) {
-        mImageNames = imageNames;
-        mImages = images;
+    public RecyclerViewAdapter(Context context, List<RetroPhoto> rp) {
+        retroPhotos = rp;
         mContext = context;
     }
 
@@ -46,16 +46,16 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         Glide.with(mContext)
                 .asBitmap()
-                .load(mImages.get(position))
+                .load("https://i.redd.it/qn7f9oqu7o501.jpg")
                 .into(holder.image);
 
-        holder.imageName.setText(mImageNames.get(position));
+        holder.imageName.setText(retroPhotos.get(position).getTitle());
         holder.parentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d(TAG, "onClick: clicked on: " + mImageNames.get(position));
+                Log.d(TAG, "onClick: clicked on: " + retroPhotos.get(position).getTitle());
 
-                Toast.makeText(mContext, mImageNames.get(position), Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, retroPhotos.get(position).getTitle(), Toast.LENGTH_SHORT).show();
 
 //                Intent intent = new Intent(mContext, GalleryActivity.class);
 //                intent.putExtra("image_url", mImages.get(position));
@@ -67,7 +67,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public int getItemCount() {
-        return mImageNames.size();
+        return retroPhotos.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
