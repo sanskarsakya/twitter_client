@@ -5,16 +5,20 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.puzan.R;
 import com.example.puzan.models.RetroPhoto;
+import com.example.puzan.models.Tweet;
+import com.example.puzan.models.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,12 +28,12 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
     private static final String TAG = "RecyclerViewAdapter";
 
-    private List<RetroPhoto> retroPhotos;
+    private List<Tweet> tweetList;
     private Context mContext;
 
-    public RecyclerViewAdapter(Context context, List<RetroPhoto> rp) {
-        retroPhotos = rp;
-        mContext = context;
+    public RecyclerViewAdapter(Context context, List<Tweet> tweetList) {
+        this.tweetList = tweetList;
+        this.mContext = context;
     }
 
     @NonNull
@@ -49,13 +53,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 .load("https://i.redd.it/qn7f9oqu7o501.jpg")
                 .into(holder.image);
 
-        holder.imageName.setText(retroPhotos.get(position).getTitle());
+        holder.username.setText(tweetList.get(position).getUser().getUsername());
+        holder.tweet.setText(tweetList.get(position).getTweet());
         holder.parentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d(TAG, "onClick: clicked on: " + retroPhotos.get(position).getTitle());
+//                Log.d(TAG, "onClick: clicked on: " + retroPhotos.get(position).getTitle());
 
-                Toast.makeText(mContext, retroPhotos.get(position).getTitle(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, tweetList.get(position).getUser().getUsername(), Toast.LENGTH_SHORT).show();
 
 //                Intent intent = new Intent(mContext, GalleryActivity.class);
 //                intent.putExtra("image_url", mImages.get(position));
@@ -67,20 +72,32 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public int getItemCount() {
-        return retroPhotos.size();
+        return tweetList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 
         CircleImageView image;
-        TextView imageName;
+        TextView username;
+        TextView tweet;
         RelativeLayout parentLayout;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            image = itemView.findViewById(R.id.image);
-            imageName = itemView.findViewById(R.id.image_name);
+            image = itemView.findViewById(R.id.profile_photo);
+            username = itemView.findViewById(R.id.tv_name);
+            tweet = itemView.findViewById(R.id.tv_tweet_text);
             parentLayout = itemView.findViewById(R.id.parent_layout);
         }
     }
 }
+
+
+//     welcome page ---> sign up page --->  dashboard page --> logout
+//          |       |                          |                   |
+//          |       |                          |                   |
+//          |       |                          |                   |
+//          |     login page ------------------                    |
+//          |                                                      |
+//          |                                                      |
+//          --------------------------------------------------------

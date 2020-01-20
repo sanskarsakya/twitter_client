@@ -19,6 +19,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.puzan.R;
 import com.example.puzan.adapters.RecyclerViewAdapter;
 import com.example.puzan.models.RetroPhoto;
+import com.example.puzan.models.Tweet;
+import com.example.puzan.models.User;
 import com.example.puzan.network.GetDataService;
 import com.example.puzan.network.RetrofitClientInstance;
 
@@ -44,31 +46,20 @@ public class HomeFragment extends Fragment {
 
         homeViewModel = ViewModelProviders.of(this).get(HomeViewModel.class);
         final View root = inflater.inflate(R.layout.fragment_home, container, false);
-//        final TextView textView = root.findViewById(R.id.text_home);
-//        homeViewModel.getText().observe(this, new Observer<String>() {
-//            @Override
-//            public void onChanged(@Nullable String s) {
-//                textView.setText(s);
-//            }
-//        });
-
         Log.d(TAG, "onCreate: started.");
 
         // make http call
         /*Create handle for the RetrofitInstance interface*/
         GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
 
-        Call<List<RetroPhoto>> call = service.getAllPhotos();
-        call.enqueue(new Callback<List<RetroPhoto>>() {
+        Call<List<Tweet>> call = service.getAllTweets();
+        call.enqueue(new Callback<List<Tweet>>() {
 
             @Override
-            public void onResponse(Call<List<RetroPhoto>> call, Response<List<RetroPhoto>> response) {
-//                Toast.makeText(getContext(), response.body().toString(), Toast.LENGTH_SHORT).show();
+            public void onResponse(Call<List<Tweet>> call, Response<List<Tweet>> response) {
                 Toast.makeText(getContext(), "puzan http!", Toast.LENGTH_SHORT).show();
-                Log.d(TAG, "http success.");
-                for (int i = 0; i < response.body().size(); i++) {
-                    Log.d(TAG, response.body().get(i).getThumbnailUrl());
-                }
+                Log.d(TAG, "http called success.");
+
                 Log.d(TAG, "initRecyclerView: init recyclerview.");
                 RecyclerView recyclerView = root.findViewById(R.id.recycler_view);
                 RecyclerViewAdapter adapter = new RecyclerViewAdapter(getActivity(), response.body());
@@ -77,8 +68,8 @@ public class HomeFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<List<RetroPhoto>> call, Throwable t) {
-                Log.d(TAG, "http success.");
+            public void onFailure(Call<List<Tweet>> call, Throwable t) {
+                Log.d(TAG, t.getMessage());
                 Toast.makeText(getContext(), "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
             }
         });
@@ -90,7 +81,7 @@ public class HomeFragment extends Fragment {
         return root;
     }
 
-    private void initImageBitmaps(){
+    private void initImageBitmaps() {
         Log.d(TAG, "initImageBitmaps: preparing bitmaps.");
 
         mImageUrls.add("https://c1.staticflickr.com/5/4636/25316407448_de5fbf183d_o.jpg");
@@ -127,7 +118,7 @@ public class HomeFragment extends Fragment {
     }
 
 
-    private void initRecyclerView(){
+    private void initRecyclerView() {
 //        Log.d(TAG, "initRecyclerView: init recyclerview.");
 //        RecyclerView recyclerView = findViewById(R.id.recycler_view);
 //        RecyclerViewAdapter adapter = new RecyclerViewAdapter(this, mNames, mImageUrls);

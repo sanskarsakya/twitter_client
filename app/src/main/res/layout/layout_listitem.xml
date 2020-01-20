@@ -1,25 +1,129 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="15dp"
-    android:id="@+id/parent_layout">
+    android:orientation="vertical"
+    android:id="@+id/parent_layout"
+    android:padding="20dp">
+
+<!--    <com.facebook.drawee.view.SimpleDraweeView-->
+<!--        android:id="@+id/profile_photo"-->
+<!--        android:layout_width="53dp"-->
+<!--        android:layout_height="53dp"-->
+<!--        android:layout_marginEnd="20dp"-->
+<!--        android:layout_marginRight="20dp"-->
+<!--        app:placeholderImage="@drawable/egg"-->
+<!--        app:roundAsCircle="true" />-->
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:id="@+id/image"
-        android:src="@mipmap/ic_launcher"/>
+        android:id="@+id/profile_photo"
+        android:layout_width="53dp"
+        android:layout_height="53dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        android:src="@mipmap/ic_launcher" />
 
     <TextView
+        android:id="@+id/tv_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Canada"
-        android:id="@+id/image_name"
-        android:layout_toRightOf="@+id/image"
-        android:textColor="#000"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="30dp"
-        android:textSize="17sp"/>
+        android:layout_toEndOf="@id/profile_photo"
+        android:layout_toRightOf="@id/profile_photo"
+        android:text="NAME"
+        android:textColor="@color/colorBlack"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tv_username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_toEndOf="@id/tv_name"
+        android:layout_toRightOf="@id/tv_name"
+        android:text="\@name"
+        android:textColor="@color/colorWhitesmoke"
+        android:textSize="15sp"
+        android:textStyle="normal" />
+
+    <TextView
+        android:id="@+id/tv_tweet_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_name"
+        android:layout_marginTop="5dp"
+        android:layout_toEndOf="@id/profile_photo"
+        android:layout_toRightOf="@id/profile_photo"
+        android:text="THIS IS A TWEET"
+        android:textColor="@color/colorBlack"
+        android:textSize="15sp"
+        android:textStyle="normal" />
+
+    <TextView
+        android:id="@+id/tv_tweet_edited"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_tweet_text"
+        android:layout_marginTop="2dp"
+        android:layout_toEndOf="@id/profile_photo"
+        android:layout_toRightOf="@id/profile_photo"
+        android:text="EDITED"
+        android:textColor="@color/colorTwitter"
+        android:textSize="13sp"
+        android:textStyle="normal"
+        android:visibility="gone" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_tweet_text"
+        android:layout_marginTop="25dp"
+        android:layout_toEndOf="@id/profile_photo"
+        android:layout_toRightOf="@id/profile_photo">
+
+        <ImageView
+            android:id="@+id/tweet_action_reply"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:src="@drawable/ic_twitter_comment"
+            android:tint="@color/colorBlack" />
+
+        <ImageView
+            android:id="@+id/tweet_action_retweet"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_marginStart="45dp"
+            android:layout_marginLeft="45dp"
+            android:layout_toEndOf="@id/tweet_action_reply"
+            android:layout_toRightOf="@id/tweet_action_reply"
+            android:src="@drawable/ic_twitter_retweet"
+            android:tint="@color/colorBlack" />
+
+        <ImageView
+            android:id="@+id/tweet_action_like"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_marginStart="45dp"
+            android:layout_marginLeft="45dp"
+            android:layout_toEndOf="@id/tweet_action_retweet"
+            android:layout_toRightOf="@id/tweet_action_retweet"
+            android:src="@drawable/ic_twitter_like_outline"
+            android:tint="@color/colorBlack" />
+
+        <ImageView
+            android:id="@+id/tweet_action_edit"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_marginStart="45dp"
+            android:layout_marginLeft="45dp"
+            android:layout_toEndOf="@id/tweet_action_like"
+            android:layout_toRightOf="@id/tweet_action_like"
+            android:src="@drawable/ic_edit_tweet"
+            android:tint="@color/colorBlack"
+            android:visibility="gone" />
+
+    </RelativeLayout>
 
 </RelativeLayout>

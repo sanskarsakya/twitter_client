@@ -1,10 +1,15 @@
 package com.example.puzan;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import com.example.puzan.login.LoginActivity;
+import com.example.puzan.welcome.WelcomeActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 
 import androidx.navigation.NavController;
@@ -22,6 +27,8 @@ import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
 
 public class MainActivity extends AppCompatActivity {
+
+    private static final String TAG = "MainActivity";
 
     private AppBarConfiguration mAppBarConfiguration;
 
@@ -65,5 +72,27 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_logout) {
+
+            Log.d(TAG, "setting pressed");
+            Intent intent = new Intent(MainActivity.this, WelcomeActivity.class);
+            startActivity(intent);
+
+            // write code to handle the click for the settings menu item!
+
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }
